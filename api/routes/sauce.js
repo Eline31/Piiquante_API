@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
+
 const Sauce = require("./models/Sauce");
 
 /**Renvoie un tableau de toutes les sauces */
-router.get("/api/sauces", (req, res, next) => {
+router.get("/", (req, res, next) => {
     Sauce.find()
         .then(sauces => res.status(200).json(sauces))
         .catch(error => res.status(400).json({ error }));
@@ -12,7 +13,7 @@ router.get("/api/sauces", (req, res, next) => {
 });
 
 /**Renvoie la sauce avec l'id fourni */
-router.get("/api/sauces/:id", (req, res, next) => {
+router.get("/:id", (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         .then((sauce) => { res.status(200).json(sauce) })
         .catch((error) => res.status(404).json({ error }));
@@ -21,7 +22,7 @@ router.get("/api/sauces/:id", (req, res, next) => {
 
 /**Enregistre une nouvelle sauce et son image */
 //Il me manque la gestion de l'image file
-router.post("/api/sauces", (req, res, next) => {
+router.post("/", (req, res, next) => {
     // delete req.body.userId;
     const sauce = new Sauce({
         userId: req.body._id,
@@ -43,7 +44,7 @@ router.post("/api/sauces", (req, res, next) => {
 });
 
 /**Enregistrement des likes et dislikes des utilisateurs pour une sauce */
-router.post("/api/sauce/:id/like", (req, res, next) => {
+router.post("/:id/like", (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         .then(() => {
             if (req.body.like = 1) {
@@ -65,7 +66,7 @@ router.post("/api/sauce/:id/like", (req, res, next) => {
 });
 
 /**Met à jour la sauce */
-router.put("/api/sauce/:id", (req, res, next) => {
+router.put("/:id", (req, res, next) => {
     const sauce = new Sauce({
         userId: req.body._id,
         name: req.body.name,
@@ -86,7 +87,7 @@ router.put("/api/sauce/:id", (req, res, next) => {
 });
 
 /**Supprime la sauce */
-router.delete("/api/sauces/:id", (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
     Sauce.deleteOne({ _id: req.params.id })
         .then(() => { res.status(200).json({ message: "Votre sauce a bien été supprimée !" }) })
         .catch((error) => res.status(400).json({ error }));
