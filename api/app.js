@@ -12,8 +12,6 @@ mongoose.connect("mongodb+srv://Piiquante_API:pyzMrvQgGdjHgziB@cluster0.2ol13jn.
     })
     .then(() => console.log("Connexion à MongDB réussie !"))
     .catch(() => console.log("Connexion à MongoDB échouée !"));
-/**Middleware pour extraire le corps JSON afin de gérer la requête post */
-app.use(express.json());
 
 /**Pour mettre en place CORS et permettre à des requêtes de partout d'arriver sur notre API*/
 app.use((req, res, next) => {
@@ -22,6 +20,9 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
+
+/**Middleware pour extraire le corps JSON afin de gérer la requête post */
+app.use(express.json());
 
 app.use("/api/sauces", apiSauceRoutes);
 app.use("/api/auth", apiUserRoutes);
