@@ -2,7 +2,6 @@ const http = require("http");
 const app = require("./app");
 const dotenv = require("dotenv");
 dotenv.config();
-const userSchema = require("./models/user");
 
 const MY_PORT = process.env.PORT;
 const MY_APP_SECRET = process.env.APP_SECRET;
