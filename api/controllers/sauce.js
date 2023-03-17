@@ -18,14 +18,13 @@ exports.getOneSauce = (req, res, next) => {
 /**Enregistre une nouvelle sauce et son image */
 //Il me manque la gestion de l'image file
 exports.createSauce = (req, res, next) => {
+    const sauceObject = JSON.parse(req.body.sauce);
+    delete sauceObject._id;
+    delete sauceObject._userId;
     const sauce = new Sauce({
-        userId: req.body._id,
-        name: req.body.name,
-        manufacturer: req.body.manufacturer,
-        description: req.body.description,
-        mainPepper: req.body.mainPepper,
-        imageUrl: req.body.imageUrl,
-        heat: req.body.heat,
+        ...sauceObject,
+        userId: req.auth.userId,
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
         likes: 0,
         dislikes: 0,
         usersLiked: [],

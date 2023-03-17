@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const apiSauceRoutes = require("./routes/sauce");
 const apiUserRoutes = require("./routes/user");
+const path = require("path");
 
 /**Connexion de l'API à la base de données MongoDB */
 mongoose.connect("mongodb+srv://Piiquante_API:pyzMrvQgGdjHgziB@cluster0.2ol13jn.mongodb.net/?retryWrites=true&w=majority",
@@ -26,5 +27,6 @@ app.use(express.json());
 
 app.use("/api/sauces", apiSauceRoutes);
 app.use("/api/auth", apiUserRoutes);
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
