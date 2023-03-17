@@ -15,11 +15,13 @@ mongoose.connect("mongodb+srv://Piiquante_API:pyzMrvQgGdjHgziB@cluster0.2ol13jn.
 /**Middleware pour extraire le corps JSON afin de gérer la requête post */
 app.use(express.json());
 
-// const userSchema = require("./models/user");
+/**Pour mettre en place CORS et permettre à des requêtes de partout d'arriver sur notre API*/
 app.use((req, res, next) => {
-    res.json({ message: "Requête reçue !" });
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content, Accept, Content-Type, Authorizartion");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
     next();
-});
+})
 
 app.use("/api/sauces", apiSauceRoutes);
 app.use("/api/auth", apiUserRoutes);
